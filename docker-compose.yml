@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+    db:
+        container_name: postgres
+        image: postgres:14.1-alpine
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: todo-db
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./data:/var/lib/postgresql/data
+
+    adminer:
+        image: adminer
+        container_name: adminer
+        restart: always
+        ports:
+            - "8080:8080"
+        depends_on:
+            - db
